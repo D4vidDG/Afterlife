@@ -1,1 +1,1 @@
-# Afterlife
+# GMTK Jam Scripts
