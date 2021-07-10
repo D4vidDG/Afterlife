@@ -1,48 +1,47 @@
+
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Arc : BulletPattern
 {
     [SerializeField] [Range(0, 360)] float arcDegrees = 90;
-    [SerializeField] float numberOfBullets = 10;
     [SerializeField] float arcRadius = 0;
     [SerializeField] float waitTimeBetweenBullets = 0;
+    [SerializeField] float minNumberOfBulletsToShoot;
+    [SerializeField] float launchTimeDelay = 0;
 
-    public override IEnumerator GenerateBulletPattern(Bullet bullet, Vector2 shootingDirection, Vector2 shootingPoint, Shooter shooter)
+    ObjectPool bulletPool;
+
+    private void Awake()
     {
-        List<Bullet> bullets = new List<Bullet>();
+        bulletPool = FindObjectOfType<ObjectPool>();
+    }
 
-        float bulletAngleIncrement = arcDegrees / numberOfBullets;
+    public override IEnumerator ShootBulletPattern(ObjectPool bulletPool, Vector2 shootingDirection, Vector2 shootingPoint, LayerMask targetLayer)
+    {
+        float bulletAngleIncrement = arcDegrees / base.numberOfBullets;
         float bulletAngle = (-arcDegrees / 2);
         float currentNumberOfBullets = 0;
 
         while (currentNumberOfBullets < numberOfBullets)
         {
             Vector2 bulletDirection = Quaternion.AngleAxis(bulletAngle, Vector3.forward) * shootingDirection;
+            Bullet bullet = bulletPool.RequestSubject().GetComponent<Bullet>();
 
-            Bullet bulletInstance =
-                Object.Instantiate(bullet, shootingPoint + bulletDirection.normalized * arcRadius, Quaternion.identity, null);
-
-            bullets.Add(bulletInstance);
-
-
-            bulletInstance.SetDirection(bulletDirection);
-            bulletInstance.SetShooter(shooter);
+            bullet.SetDirection(bulletDirection);
+            bullet.SetTargetLayer(targetLayer);
 
             bulletAngle += bulletAngleIncrement;
             currentNumberOfBullets++;
+            if () StartCoroutine(LaunchBullet(bullet, launchTimeDelay));
             yield return new WaitForSeconds(waitTimeBetweenBullets);
         }
 
-        foreach (Bullet bulletInstance in bullets)
-        {
-            bulletInstance.Launch();
-        }
+
     }
 
-    public override float GetNumberOfBullets()
+    private IEnumerator LaunchBullet(Bullet bullet, float launchTimeDelay)
     {
-        return numberOfBullets;
+        yield return launchTimeDelay
     }
 }

@@ -34,6 +34,20 @@ public class Health : MonoBehaviour
         currentHealth = maxHealth;
     }
 
+    public void TakeDamage(float damage)
+    {
+        currentHealth = Mathf.Max(0, currentHealth - damage);
+        if (isDead) return;
+
+        if (currentHealth == 0)
+        {
+            Die();
+            return;
+        }
+
+        onTakeDamage.Invoke();
+    }
+
     public float GetHealthFraction()
     {
         return currentHealth / maxHealth;
@@ -46,23 +60,11 @@ public class Health : MonoBehaviour
         currentHealth = Mathf.Min(currentHealth + value, maxHealth);
     }
 
-    public void TakeDamage(float damage, bool autoDamage)
+    private void Die()
     {
-        currentHealth = Mathf.Max(0, currentHealth - damage);
-        if (isDead) return;
-
-        if (!autoDamage)
-        {
-            onTakeDamage.Invoke();
-
-            StopAllCoroutines();
-            StartCoroutine(ChangeColor());
-        }
-
-        if (currentHealth == 0)
-        {
-            Die();
-        }
+        onDie.Invoke();
+        isDead = true;
+        Destroy(gameObject);
     }
 
     private IEnumerator ChangeColor()
@@ -72,11 +74,6 @@ public class Health : MonoBehaviour
         sRenderer.color = originalColor;
     }
 
-    private void Die()
-    {
-        onDie.Invoke();
-        isDead = true;
-        Destroy(gameObject);
-    }
+
 
 }

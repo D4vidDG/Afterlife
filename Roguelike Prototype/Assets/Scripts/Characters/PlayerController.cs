@@ -6,15 +6,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] Weapon weapon;
 
-    Shooter shooter;
     Rigidbody2D myRigidBody;
     Health health;
 
     Vector2 movement;
     float timeSinceShoot;
+
     private void Awake()
     {
-        shooter = GetComponent<Shooter>();
         myRigidBody = GetComponent<Rigidbody2D>();
     }
 
@@ -33,9 +32,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButton(0) && timeSinceShoot > (1 / weapon.GetFireRate()))
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            weapon.Shoot(mousePos - (Vector2)transform.position, transform.position, shooter);
+            StartCoroutine(weapon.Shoot());
             timeSinceShoot = 0;
-            health.TakeDamage(weapon.GetWeaponAutoDamage(), true);
         }
     }
 

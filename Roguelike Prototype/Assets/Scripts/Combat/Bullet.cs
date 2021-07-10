@@ -9,10 +9,11 @@ public class Bullet : MonoBehaviour
     [SerializeField] float knockBack;
     [SerializeField] float maxLifeTime = 5f;
 
-    Shooter shooter;
     Rigidbody2D myRigidBody;
-    Vector2 direction;
+
     float lifeTime;
+    LayerMask targetLayer;
+    Vector2 direction;
 
     bool launched = false;
 
@@ -27,20 +28,18 @@ public class Bullet : MonoBehaviour
         lifeTime += Time.deltaTime;
         if (lifeTime > maxLifeTime)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
-
     }
 
     public void SetDirection(Vector2 direction)
     {
-        this.direction = direction.normalized;
+        this.direction = direction;
     }
 
-    public void SetShooter(Shooter shooter)
+    public void SetTargetLayer(LayerMask layer)
     {
-        if (shooter == null) return;
-        this.shooter = shooter;
+        this.targetLayer = layer;
     }
 
     public void Launch()
@@ -51,20 +50,10 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            Destroy(gameObject);
-            return;
-        }
-        if (other.gameObject.CompareTag("Attract")) return;
-
-        if (shooter != null && other.gameObject.CompareTag(shooter.tag)) return;
-        if (other.TryGetComponent<Bullet>(out Bullet bullet)) return;
-        if (!launched) return;
         if (other.TryGetComponent<Health>(out Health health))
         {
-            health.TakeDamage(damage, false);
+            health.TakeDamage(damage);
         }
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
