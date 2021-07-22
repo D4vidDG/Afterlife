@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcf6b05d57aaf6c4aa048c8ff010ec84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fovDistance: 0
   maxApproachDistance: 0
-  weapon: {fileID: 8155803073803706881, guid: 752df14283de8284fb490d9d77b18948, type: 3}
-  bodyParticlesPrefab: {fileID: 6734698992914002628, guid: 093956fa87a41cd409213b2d389d4737, type: 3}
+  fireRate: 0
+  shootingPosition: {fileID: 0}
+  patrolRadius: 0
+  dwellingTime: 0
 --- !u!114 &-272666289286626101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,9 +297,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7897937568523940012, guid: 2a8bb526239a8654a858e3aebf7c2f2b, type: 3}
       propertyPath: m_TagString
-      value: Enemy
+      value: Untagged
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 2a8bb526239a8654a858e3aebf7c2f2b, type: 3}
 --- !u!1 &5406353663991726610 stripped
 GameObject:

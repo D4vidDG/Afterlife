@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5510067952835673816
+--- !u!114 &5027221871700445102
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b503b7f143cc000429daa03b4abc1917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numberOfBullets: 1
 --- !u!1001 &7540926280402782086
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25,7 +26,7 @@ PrefabInstance:
       objectReference: {fileID: -3351974840122566370, guid: add88660b59d1a849bb20e5041d6e185, type: 3}
     - target: {fileID: 1840278796428322183, guid: 39c0b4adab29874459830c1898e6bed6, type: 3}
       propertyPath: fireRate
-      value: 2.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1840278796428322183, guid: 39c0b4adab29874459830c1898e6bed6, type: 3}
       propertyPath: damagePerBullet

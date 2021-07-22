@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class Line : BulletPattern
 {
-    public override IEnumerable GenerateBulletPattern(ObjectPool bulletPool, Vector2 shootingDirection, Vector2 shootingPoint, LayerMask targetLayer)
+    public override IEnumerator ShootBulletPattern(ObjectPool bulletPool, Vector2 shootingDirection, Vector2 shootingPoint, LayerMask targetLayer)
     {
-        Bullet bulletInstance = Object.Instantiate(bullet, shootingPoint, Quaternion.identity, null);
+        print("Shoot");
+        Bullet bulletInstance = bulletPool.RequestSubject().GetComponent<Bullet>();
         bulletInstance.SetDirection(shootingDirection.normalized);
-        bulletInstance.SetShooter(shooter);
+        bulletInstance.SetTargetLayer(targetLayer);
         bulletInstance.Launch();
         yield return null;
     }

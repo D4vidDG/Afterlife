@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(ObjectPool))]
@@ -7,21 +5,23 @@ public class Weapon : MonoBehaviour
 {
     [SerializeField] float fireRate;
     [SerializeField] float damagePerBullet;
-    [SerializeField] BulletPattern bulletPattern;
     [SerializeField] Transform shootingPoint;
 
+    BulletPattern bulletPattern;
     LayerMask enemiesLayer;
     ObjectPool bulletPool;
 
     private void Start()
     {
         enemiesLayer = LayerMask.GetMask("Enemy");
+        print(enemiesLayer.value);
         bulletPool = GetComponent<ObjectPool>();
+        bulletPattern = GetComponent<BulletPattern>();
     }
 
-    public IEnumerator Shoot()
+    public void Shoot(Vector2 direction)
     {
-        bulletPattern.GenerateBulletPattern(bulletPool, transform.right, shootingPoint));
+        StartCoroutine(bulletPattern.ShootBulletPattern(bulletPool, direction, shootingPoint.position, enemiesLayer));
     }
 
     public float GetFireRate()

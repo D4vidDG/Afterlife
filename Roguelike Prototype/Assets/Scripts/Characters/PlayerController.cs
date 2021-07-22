@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButton(0) && timeSinceShoot > (1 / weapon.GetFireRate()))
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            StartCoroutine(weapon.Shoot());
+            weapon.Shoot(mousePos - (Vector2)transform.position);
             timeSinceShoot = 0;
         }
     }

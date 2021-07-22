@@ -12,7 +12,6 @@ public class Bullet : MonoBehaviour
     Rigidbody2D myRigidBody;
 
     float lifeTime;
-    LayerMask targetLayer;
     Vector2 direction;
 
     bool launched = false;
@@ -39,7 +38,7 @@ public class Bullet : MonoBehaviour
 
     public void SetTargetLayer(LayerMask layer)
     {
-        this.targetLayer = layer;
+        gameObject.layer = (int)Mathf.Log(layer.value);
     }
 
     public void Launch()
@@ -50,6 +49,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (!launched) return;
         if (other.TryGetComponent<Health>(out Health health))
         {
             health.TakeDamage(damage);

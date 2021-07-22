@@ -5,7 +5,6 @@ using UnityEngine;
 public class Arc : BulletPattern
 {
     [SerializeField] [Range(0, 360)] float arcDegrees = 90;
-    [SerializeField] float arcRadius = 0;
     [SerializeField] float waitTimeBetweenBullets = 0;
     [SerializeField] float minNumberOfBulletsToShoot;
     [SerializeField] float launchTimeDelay = 0;
@@ -33,7 +32,7 @@ public class Arc : BulletPattern
 
             bulletAngle += bulletAngleIncrement;
             currentNumberOfBullets++;
-            if () StartCoroutine(LaunchBullet(bullet, launchTimeDelay));
+            StartCoroutine(LaunchBullet(bullet, launchTimeDelay));
             yield return new WaitForSeconds(waitTimeBetweenBullets);
         }
 
@@ -42,6 +41,7 @@ public class Arc : BulletPattern
 
     private IEnumerator LaunchBullet(Bullet bullet, float launchTimeDelay)
     {
-        yield return launchTimeDelay
+        yield return launchTimeDelay;
+        bullet.Launch();
     }
 }

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6450852801084517009}
   - component: {fileID: 1840278796428322183}
+  - component: {fileID: 5211793151932430567}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -43,5 +44,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0538edbc7d58004a9003bb5da2fc9e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 0}
   fireRate: 0
+  damagePerBullet: 0
+  bulletPattern: {fileID: 0}
+  shootingPoint: {fileID: 0}
+--- !u!114 &5211793151932430567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4995264513727578477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e1c294b3b6d021409f0908826aae679, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subject: {fileID: 437614274576063602, guid: add88660b59d1a849bb20e5041d6e185, type: 3}
+  numberOfInstances: 20
